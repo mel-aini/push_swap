@@ -37,7 +37,7 @@ LIBFT = libft/libft.a
 
 all : $(LIBFT) $(NAME)
 
-$(LIBFT) : $(OBJ_LIBFT)
+$(LIBFT) :
 	make -C libft/
 
 $(NAME) : $(OBJ)

@@ -54,7 +54,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (s1[i] && in_check(s1[i++], set))
 		nb++;
 	i = ft_strlen(s1) - 1;
-	while (nb < ft_strlen(s1) && i >= 0 && in_check(s1[i--], set))
+	while (nb < ft_strlen(s1) && in_check(s1[i--], set))
 		ne++;
 	str = (char *)malloc(sizeof(char) * ((ft_strlen(s1) - (nb + ne)) + 1));
 	if (!str)

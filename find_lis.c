@@ -12,14 +12,14 @@
 
 #include "push_swap.h"
 
-t_list	*new_list(int n)
+t_list	*new_list(int n, int content)
 {
 	t_list	*len;
 	int		i;
 
 	if (!n)
 		return (0);
-	len = ft_lstnew(1);
+	len = ft_lstnew(content);
 	i = 1;
 	while (i < n)
 	{
@@ -29,27 +29,6 @@ t_list	*new_list(int n)
 	return (len);
 }
 
-// int	longest_index(int *arr, int n)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	while (i < n)
-// 	{
-// 		j = 0;
-// 		while (j < n)
-// 		{
-// 			if (arr[i] < arr[j])
-// 				break;
-// 			j++;
-// 		}
-// 		if (j == n)
-// 			return (i);
-// 		i++;
-// 	}
-// 	return (i);
-// }
 int	longest_index(t_list *len, int size)
 {
 	int		i;
@@ -78,7 +57,56 @@ int	longest_index(t_list *len, int size)
 	return (len->content);
 }
 
-int lis(t_list *stack)
+int	*alloc_lis(t_list *stack, t_list *len, int *indexes, int size)
+{
+	int		*lis;
+	int		*lis_indexes;
+	int		l;
+	int		i;
+	int		j;
+	int		k;
+
+	lis = NULL;
+	l = longest_index(len, size);
+	lis_indexes = malloc(sizeof(int) * l);
+	lis = malloc(sizeof(int) * l);
+	i = 0;
+	while (i < size && len->content != l)
+	{
+		len = len->next;
+		i++;
+	}
+	lis_indexes[l - 1] = i;
+	j = i;
+	k = l - 2;
+	while (i >= 0)
+	{
+		if (indexes[j] == i)
+		{
+			lis_indexes[k] = i;
+			k--;
+			j = i;
+		}
+		i--;
+	}
+	i = 0;
+	j = 0;
+	while (i < size)
+	{
+		if (i == lis_indexes[j])
+		{
+			// printf("Here\n");
+			// printf("at j = %d => %d\n", j, lis[j]);
+			lis[j] = stack->content;
+			j++;
+		}
+		stack = stack->next;
+		i++;	
+	}
+	return (lis);
+}
+
+int *find_lis(t_list *stack)
 {
     int		i;
     int		j;
@@ -88,9 +116,12 @@ int lis(t_list *stack)
 	t_list	*len;
 	t_list	*len_tmp;
 	t_list	*len_head;
+	int		*indexes;
 
 	size = ft_lstsize(stack);
-	len = new_list(size);
+	len = new_list(size, 1);
+	indexes = malloc(sizeof(int) * size);
+	indexes[0] = 0;
 	stack_head = stack;
 	len_head = len;
 	stack_tmp = stack->next;
@@ -106,7 +137,10 @@ int lis(t_list *stack)
 			if (stack->content < stack_tmp->content)
 			{
 				if (len_tmp->content <= len->content)
+				{
 					len_tmp->content = len->content + 1;
+					indexes[i] = j;
+				}
 			}
 			stack = stack->next;
 			len = len->next;
@@ -116,5 +150,6 @@ int lis(t_list *stack)
 		len_tmp = len_tmp->next;
 		i++;
 	}
-	return (longest_index(len_head, size));
+	int *lis = alloc_lis(stack_head, len_head, indexes, size);
+	return (lis);
 }

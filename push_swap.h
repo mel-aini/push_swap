@@ -24,6 +24,6 @@
 
 typedef struct s_list t_list;
 
-int lis(t_list *stack);
+int	*find_lis(t_list *stack);
 
 #endif
