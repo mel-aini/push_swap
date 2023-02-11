@@ -14,13 +14,15 @@
 
 void    ra(t_list **stack_a)
 {
-    t_list *tmp;
-    t_list	*ptr;
-
+	t_list *tmp;
+	t_list	*ptr;
+	
 	ptr = *stack_a;
-    tmp = ft_lstnew((*stack_a)->content);
-    *stack_a = (*stack_a)->next;
-    while (ptr->next != NULL)
+	tmp = ft_lstnew((*stack_a)->content);
+	*stack_a = (*stack_a)->next;
+	free(ptr);
+	ptr = *stack_a;
+	while (ptr->next != NULL)
 		ptr = ptr->next;
 	ptr->next = tmp;
 }

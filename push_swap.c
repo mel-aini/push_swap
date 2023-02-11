@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:53:01 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/09 15:27:47 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/11 14:32:28 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,16 @@ t_list	*push_not_exist_to_stack_b(t_list **stack_a, int *lis)
 		while (j < 6)
 		{
 			if (sa_tmp->content == lis[j])
+			{
+				ra(&sa_tmp);
+				*stack_a = sa_tmp;
 				exist = 1;
+				break ;
+			}
 			j++;
 		}
-		/* Here we have to push all inexist nums in lis to stack B
 		if (!exist)
-			pb(&(*stack_a), &stack_b);
-		*/
-		sa_tmp = sa_tmp->next;
+			pb(&sa_tmp, &stack_b);
 		i++;
 	}
 	return (stack_b);
@@ -70,5 +72,6 @@ int	main(int argc, char *argv[])
 		if (stack_b->next == NULL)
 			printf("%d\n", stack_b->content);
 	}
+	// system("leaks push_swap");
 	return (0);
 }

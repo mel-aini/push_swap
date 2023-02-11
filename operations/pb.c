@@ -17,9 +17,11 @@ void    pb(t_list **stack_a, t_list **stack_b)
     t_list  *tmp;
     t_list  *new;
 
+	// printf("Here\n");
     if (ft_lstsize(*stack_a) > 0)
     {
         new = ft_lstnew((*stack_a)->content);
+		// printf("in pb : %d\n", (*stack_a)->content);
 	    new->next = *stack_b;
 	    *stack_b = new;
         // delete node in stack a

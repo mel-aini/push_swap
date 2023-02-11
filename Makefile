@@ -6,13 +6,13 @@
 #    By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 15:02:54 by mel-aini          #+#    #+#              #
-#    Updated: 2023/02/09 11:11:46 by mel-aini         ###   ########.fr        #
+#    Updated: 2023/02/11 09:04:25 by mel-aini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-SRC = push_swap.c lis.c \
+SRC = push_swap.c find_lis.c \
 	parsing/parsing.c parsing/errors.c \
 	operations/sa.c operations/sb.c operations/ss.c \
 	operations/pa.c operations/pb.c operations/ra.c operations/rb.c operations/rr.c \

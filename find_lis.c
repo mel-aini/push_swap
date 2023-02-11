@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lis.c                                              :+:      :+:    :+:   */
+/*   find_lis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:31:48 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/09 17:43:08 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/11 11:15:47 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,35 +29,29 @@ t_list	*new_list(int n, int content)
 	return (len);
 }
 
-int	longest_index(t_list *len, int size)
+int	longest_index(int *len, int size)
 {
 	int		i;
 	int		j;
-	t_list	*len_head;
-	t_list	*len_tmp;
 
 	i = 0;
-	len_head = len;
 	while (i < size)
 	{
 		j = 0;
-		len_tmp = len_head;
 		while (j < size)
 		{
-			if (len->content < len_tmp->content)
+			if (len[i] < len[j])
 				break;
-			len_tmp = len_tmp->next;
 			j++;
 		}
 		if (j == size)
-			return (len->content);
-		len = len->next;
+			return (len[j - 1]);
 		i++;
 	}
-	return (len->content);
+	return (len[j]);
 }
 
-int	*alloc_lis(t_list *stack, t_list *len, int *indexes, int size)
+int	*alloc_lis(t_list *stack, int *len, int *indexes, int size)
 {
 	int		*lis;
 	int		*lis_indexes;
@@ -71,11 +65,8 @@ int	*alloc_lis(t_list *stack, t_list *len, int *indexes, int size)
 	lis_indexes = malloc(sizeof(int) * l);
 	lis = malloc(sizeof(int) * l);
 	i = 0;
-	while (i < size && len->content != l)
-	{
-		len = len->next;
+	while (i < size && len[i] != l)
 		i++;
-	}
 	lis_indexes[l - 1] = i;
 	j = i;
 	k = l - 2;
@@ -95,61 +86,71 @@ int	*alloc_lis(t_list *stack, t_list *len, int *indexes, int size)
 	{
 		if (i == lis_indexes[j])
 		{
-			// printf("Here\n");
-			// printf("at j = %d => %d\n", j, lis[j]);
 			lis[j] = stack->content;
 			j++;
 		}
 		stack = stack->next;
 		i++;	
 	}
+	free(indexes);
+	free(len);
+	free(lis_indexes);
 	return (lis);
+}
+
+int	*fill_len(int size)
+{
+	int	*len;
+	int	i;
+
+	len = malloc(sizeof(int) * size);
+	if (!len)
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		len[i] = 1;
+		i++;
+	}
+	return (len);
 }
 
 int *find_lis(t_list *stack)
 {
-    int		i;
-    int		j;
-    int		size;
+	int		i;
+	int		j;
+	int		size;
 	t_list	*stack_tmp;
 	t_list	*stack_head;
-	t_list	*len;
-	t_list	*len_tmp;
-	t_list	*len_head;
+	int		*len;
 	int		*indexes;
-
+	
 	size = ft_lstsize(stack);
-	len = new_list(size, 1);
+	len = fill_len(size);
 	indexes = malloc(sizeof(int) * size);
 	indexes[0] = 0;
 	stack_head = stack;
-	len_head = len;
 	stack_tmp = stack->next;
-	len_tmp = len->next;
 	i = 1;
 	while (i < size)
 	{
 		j = 0;
-		len = len_head;
 		stack = stack_head;
 		while (j < i)
 		{
 			if (stack->content < stack_tmp->content)
 			{
-				if (len_tmp->content <= len->content)
+				if (len[i] <= len[j])
 				{
-					len_tmp->content = len->content + 1;
+					len[i] = len[j] + 1;
 					indexes[i] = j;
 				}
 			}
 			stack = stack->next;
-			len = len->next;
 			j++;
 		}
 		stack_tmp = stack_tmp->next;
-		len_tmp = len_tmp->next;
 		i++;
 	}
-	int *lis = alloc_lis(stack_head, len_head, indexes, size);
-	return (lis);
+	return (alloc_lis(stack_head, len, indexes, size));
 }
