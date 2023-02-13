@@ -35,5 +35,6 @@ void    rrb(t_list **stack_b)
 	    ptr->next = *stack_b;
 	    *stack_b = ptr;
         tmp->next = NULL;
+		printf("rrb\n");
     }
 }

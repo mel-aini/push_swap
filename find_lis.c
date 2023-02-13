@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:31:48 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/11 11:15:47 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:33:01 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int	longest_index(int *len, int size)
 			j++;
 		}
 		if (j == size)
-			return (len[j - 1]);
+			return (len[i]);
 		i++;
 	}
-	return (len[j]);
+	return (len[i]);
 }
 
-int	*alloc_lis(t_list *stack, int *len, int *indexes, int size)
+int	*alloc_lis(t_list *stack, int *len, int *indexes, int size, t_tools	**tools)
 {
 	int		*lis;
 	int		*lis_indexes;
@@ -62,6 +62,7 @@ int	*alloc_lis(t_list *stack, int *len, int *indexes, int size)
 
 	lis = NULL;
 	l = longest_index(len, size);
+	(*tools)->lis_size = l;
 	lis_indexes = malloc(sizeof(int) * l);
 	lis = malloc(sizeof(int) * l);
 	i = 0;
@@ -169,7 +170,7 @@ t_list	*dup_stack(t_list *stack, int size)
 	return (dup);
 }
 
-int *find_lis(t_list *stack)
+int *find_lis(t_list *stack, t_tools *tools)
 {
 	int		i;
 	int		j;
@@ -208,5 +209,5 @@ int *find_lis(t_list *stack)
 		tmp_tmp = tmp_tmp->next;
 		i++;
 	}
-	return (alloc_lis(tmp_head, len, indexes, size));
+	return (alloc_lis(tmp_head, len, indexes, size, &tools));
 }

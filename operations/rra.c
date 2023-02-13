@@ -35,5 +35,6 @@ void    rra(t_list **stack_a)
 	    ptr->next = *stack_a;
 	    *stack_a = ptr;
         tmp->next = NULL;
+		printf("rra\n");
     }
 }

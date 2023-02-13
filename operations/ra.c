@@ -25,4 +25,5 @@ void    ra(t_list **stack_a)
 	while (ptr->next != NULL)
 		ptr = ptr->next;
 	ptr->next = tmp;
+	printf("ra\n");
 }
