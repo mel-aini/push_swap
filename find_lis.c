@@ -115,30 +115,86 @@ int	*fill_len(int size)
 	return (len);
 }
 
+t_list	*put_small_at_top(t_list *stack, int size)
+{
+	t_list	*tmp;
+	t_list	*tmp2;
+	t_list	*stack_head;
+	int		i;
+	int		j;
+
+	stack_head = stack;
+	tmp = stack;
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		tmp2 = stack_head;
+		while (j < size)
+		{
+			if (tmp->content > tmp2->content)
+				break ;
+			j++;
+			tmp2 = tmp2->next;
+		}
+		if (j == size)
+		{
+			while (i > 0)
+			{
+				ra(&stack_head);
+				i--;
+			}
+			break ;
+		}
+		tmp = tmp->next;
+		i++;
+	}
+	return (stack_head);
+}
+
+t_list	*dup_stack(t_list *stack, int size)
+{
+	t_list	*dup;
+	int		i;
+
+	dup = NULL;
+	i = 0;
+	while (i < size)
+	{
+		ft_lstadd_back(&dup, ft_lstnew(stack->content));
+		stack = stack->next;
+		i++;
+	}
+	dup = put_small_at_top(dup, size);
+	return (dup);
+}
+
 int *find_lis(t_list *stack)
 {
 	int		i;
 	int		j;
 	int		size;
-	t_list	*stack_tmp;
-	t_list	*stack_head;
+	t_list	*tmp_tmp;
+	t_list	*tmp_head;
+	t_list	*tmp;
 	int		*len;
 	int		*indexes;
-	
+
 	size = ft_lstsize(stack);
+	tmp = dup_stack(stack, size);
 	len = fill_len(size);
 	indexes = malloc(sizeof(int) * size);
 	indexes[0] = 0;
-	stack_head = stack;
-	stack_tmp = stack->next;
+	tmp_head = tmp;
+	tmp_tmp = tmp->next;
 	i = 1;
 	while (i < size)
 	{
 		j = 0;
-		stack = stack_head;
+		tmp = tmp_head;
 		while (j < i)
 		{
-			if (stack->content < stack_tmp->content)
+			if (tmp->content < tmp_tmp->content)
 			{
 				if (len[i] <= len[j])
 				{
@@ -146,11 +202,11 @@ int *find_lis(t_list *stack)
 					indexes[i] = j;
 				}
 			}
-			stack = stack->next;
+			tmp = tmp->next;
 			j++;
 		}
-		stack_tmp = stack_tmp->next;
+		tmp_tmp = tmp_tmp->next;
 		i++;
 	}
-	return (alloc_lis(stack_head, len, indexes, size));
+	return (alloc_lis(tmp_head, len, indexes, size));
 }
