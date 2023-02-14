@@ -21,5 +21,6 @@ void    sa(t_list **stack_a)
         tmp = (*stack_a)->content;
         (*stack_a)->content = (*stack_a)->next->content;
         (*stack_a)->next->content = tmp;
+		printf("sa\n");
     }
 }

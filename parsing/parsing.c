@@ -52,6 +52,47 @@ t_list	*check_if_numbers(int argc, char *argv[])
 	return (stack_a);
 }
 
+void	check_if_sorted(t_list *stack_a)
+{
+	int	size;
+	int	i;
+
+	size = ft_lstsize(stack_a);
+	i = 0;
+	while (i < size - 1 && stack_a->content < stack_a->next->content)
+	{
+		stack_a = stack_a->next;
+		i++;
+	}
+	if (i == size - 1)
+		exit(EXIT_SUCCESS);
+}
+
+void	check_if_duplicate(t_list *stack)
+{
+	int		i;
+	int		j;
+	int		size;
+	t_list *tmp;
+
+	size = ft_lstsize(stack);
+	i = 0;
+	while (i < size - 1)
+	{
+		j = i;
+		tmp = stack->next;
+		while (j < size - 1)
+		{
+			if (stack->content == tmp->content)
+				invalid_arg();
+			tmp = tmp->next;
+			j++;
+		}
+		stack = stack->next;
+		i++;
+	}
+}
+
 t_list	*parsing(int argc, char *argv[])
 {
 	t_list *stack_a;
@@ -59,5 +100,12 @@ t_list	*parsing(int argc, char *argv[])
 	if (argc < 2)
 		invalid_arg();
 	stack_a = check_if_numbers(argc, argv);
+	check_if_duplicate(stack_a);
+	check_if_sorted(stack_a);
+	if (argc == 3)
+	{
+		sa(&stack_a);
+		exit(EXIT_SUCCESS);
+	}
 	return (stack_a);
 }

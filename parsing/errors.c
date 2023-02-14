@@ -15,11 +15,11 @@
 void	invalid_arg(void)
 {
 	write(2, INVALID_ARG, 29);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 void	exit_process(void)
 {
 	perror("push_swap");
-	exit(1);
+	exit(EXIT_FAILURE);
 }

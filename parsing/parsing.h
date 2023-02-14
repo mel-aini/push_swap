@@ -18,6 +18,7 @@
 typedef struct s_list t_list;
 
 t_list	*parsing(int argc, char *argv[]);
+void	check_if_sorted(t_list *stack_a);
 void	invalid_arg(void);
 void	exit_process(void);
 
