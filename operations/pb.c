@@ -29,5 +29,6 @@ void    pb(t_list **stack_a, t_list **stack_b)
         *stack_a = (*stack_a)->next;
         free(tmp);
         tmp = NULL;
+		printf("pb\n");
     }
 }

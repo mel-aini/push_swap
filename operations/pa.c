@@ -27,5 +27,6 @@ void    pa(t_list **stack_a, t_list **stack_b)
         *stack_b = (*stack_b)->next;
         free(tmp);
         tmp = NULL;
+		printf("pa\n");
     }
 }

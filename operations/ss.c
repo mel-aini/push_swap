@@ -28,6 +28,7 @@ void    ss(t_list **stack_a, t_list **stack_b)
         (*stack_b)->content = (*stack_b)->next->content;
         (*stack_b)->next->content = tmp;
     }
+	printf("ss\n");
     // t_list *stack_a_tmp;
     // t_list *stack_b_tmp;
 

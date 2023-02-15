@@ -31,4 +31,5 @@ void    rr(t_list **stack_a, t_list **stack_b)
     while (ptr->next != NULL)
 		ptr = ptr->next;
 	ptr->next = tmp;
+	printf("rr\n");
 }

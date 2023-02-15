@@ -12,7 +12,7 @@
 
 #include "operations.h"
 
-void    rra(t_list **stack_a)
+void    rra(t_list **stack_a, int print)
 {
     t_list  *tmp;
     t_list  *new;
@@ -35,6 +35,7 @@ void    rra(t_list **stack_a)
 	    ptr->next = *stack_a;
 	    *stack_a = ptr;
         tmp->next = NULL;
-		printf("rra\n");
+		if (print)
+			printf("rra\n");
     }
 }

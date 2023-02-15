@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:31:48 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/13 14:33:01 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:54:05 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	*fill_len(int size)
 	return (len);
 }
 
-t_list	*put_small_at_top(t_list *stack, int size)
+t_list	*put_small_of_tmp_at_top(t_list *stack, int size)
 {
 	t_list	*tmp;
 	t_list	*tmp2;
@@ -142,13 +142,63 @@ t_list	*put_small_at_top(t_list *stack, int size)
 		{
 			while (i > 0)
 			{
-				ra(&stack_head);
+				ra(&stack_head, 0);
 				i--;
 			}
 			break ;
 		}
 		tmp = tmp->next;
 		i++;
+	}
+	return (stack_head);
+}
+
+t_list	*put_small_at_top(t_list *stack, int size, int print)
+{
+	t_list	*tmp;
+	t_list	*tmp2;
+	t_list	*stack_head;
+	int		i;
+	int		j;
+
+	stack_head = stack;
+	tmp = stack;
+	i = 0;
+	while (i <= size / 2)
+	{
+		if (tmp->content > tmp->next->content)
+		{
+			while (i >= 0)
+			{
+				ra(&stack_head, print);
+				i--;
+			}
+			return (stack_head);
+		}
+		tmp = tmp->next;
+		i++;
+	}
+	j = ((size / 2) * -1) + (1 - size % 2);
+	while (i < size)
+	{
+		if (i == size - 1)
+		{
+			rra(&stack_head, print);
+			return (stack_head);
+		}
+		if (tmp->content > tmp->next->content)
+		{
+			j++;
+			while (j < 0)
+			{
+				rra(&stack_head, print);
+				j++;
+			}
+			return (stack_head);
+		}
+		tmp = tmp->next;
+		i++;
+		j++;
 	}
 	return (stack_head);
 }
@@ -166,7 +216,7 @@ t_list	*dup_stack(t_list *stack, int size)
 		stack = stack->next;
 		i++;
 	}
-	dup = put_small_at_top(dup, size);
+	dup = put_small_of_tmp_at_top(dup, size);
 	return (dup);
 }
 

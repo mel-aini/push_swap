@@ -21,5 +21,6 @@ void    sb(t_list **stack_b)
         tmp = (*stack_b)->content;
         (*stack_b)->content = (*stack_b)->next->content;
         (*stack_b)->next->content = tmp;
+		printf("sb\n");
     }
 }

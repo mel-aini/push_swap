@@ -6,7 +6,7 @@
 #    By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 15:02:54 by mel-aini          #+#    #+#              #
-#    Updated: 2023/02/11 09:04:25 by mel-aini         ###   ########.fr        #
+#    Updated: 2023/02/15 11:42:35 by mel-aini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC = push_swap.c find_lis.c \
 	operations/sa.c operations/sb.c operations/ss.c \
 	operations/pa.c operations/pb.c operations/ra.c operations/rb.c operations/rr.c \
 	operations/rra.c operations/rrb.c \
-	# operations/rrr.c
+	operations/rrr.c
 
 
 SRC_LIBFT = libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_isascii.c libft/ft_isprint.c libft/ft_strlen.c libft/ft_memset.c libft/ft_bzero.c \

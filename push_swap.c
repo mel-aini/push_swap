@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:53:01 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/13 18:53:30 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:55:58 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_list	*push_not_exist_to_stack_b(t_list **stack_a, int *lis, t_tools *tools)
 	sa_tmp = *stack_a;
 	size = ft_lstsize(sa_tmp);
 	stack_b = NULL;
+	if (size == tools->lis_size)
+		return (stack_b);
 	i = 0;
 	while (i < size)
 	{
@@ -42,7 +44,7 @@ t_list	*push_not_exist_to_stack_b(t_list **stack_a, int *lis, t_tools *tools)
 		{
 			if (sa_tmp->content == lis[j])
 			{
-				ra(&sa_tmp);
+				ra(&sa_tmp, 1);
 				*stack_a = sa_tmp;
 				exist = 1;
 				break ;
@@ -119,6 +121,8 @@ int	pos_of_largest(t_list *stack_a, int size)
 	j = ((size / 2) * -1) + (1 - size % 2);
 	while (i < size)
 	{
+		if (i == size - 1)
+			return (0);
 		if (stack_a->content > tmp->content)
 			return (j + 1);
 		stack_a = stack_a->next;
@@ -150,7 +154,6 @@ void	find_pos_of_elem_at_stack_a(t_list *stack_a, int elem, int **pos, int index
 			pos[index][0] = 0;
 			return ;
 		}
-		// printf("Here\n");
 		else if (i != size - 1 && stack_a->content < elem && elem < stack_a->next->content)
 		{
 			if (i == size / 2)
@@ -195,6 +198,7 @@ int	*find_best_elem_at_a_to_push_to_b(t_list *stack_a, t_list *stack_b)
 	while (i <= size / 2)
 	{
 		pos[i][1] = i;
+		// printf("stack_b->content = %d\n", stack_b->content);
 		find_pos_of_elem_at_stack_a(stack_a, stack_b->content, pos, i);
 		stack_b = stack_b->next;
 		i++;
@@ -219,6 +223,20 @@ int	*find_best_elem_at_a_to_push_to_b(t_list *stack_a, t_list *stack_b)
 	return (pos[best]);
 }
 
+int	min(int a, int b)
+{
+	if (a <= b)
+		return (a);
+	else
+		return (b);
+	return (0);
+}
+
+int	diff(int a, int b)
+{
+	return (a - b);
+}
+
 t_list	*iterate_b(t_list *stack_a, t_list **stack_b)
 {
 	int		*best_elem;
@@ -235,23 +253,74 @@ t_list	*iterate_b(t_list *stack_a, t_list **stack_b)
 		// print_stacks(stack_a, stack_b_tmp);
 		best_elem = find_best_elem_at_a_to_push_to_b(stack_a, stack_b_tmp);
 		// printf("best elem is [%d, %d]\n", best_elem[0], best_elem[1]);
-		j = 0;//24928 | 23330
-		while (j < absolute(best_elem[1]))
+		if (best_elem[0] > 0 && best_elem[1] > 0)
 		{
-			if (best_elem[1] > 0)
-				rb(&stack_b_tmp);
-			else if (best_elem[1] < 0)
-				rrb(&stack_b_tmp);
-			j++;
+			j = 0;
+			while (j < min(best_elem[0], best_elem[1]))
+			{
+				rr(&stack_a, &stack_b_tmp);
+				j++;
+			}
+			j = diff(best_elem[0], best_elem[0]);
+			while (j != 0)
+			{
+				if (j > 0)
+				{
+					ra(&stack_a, 1);
+					j--;
+				}
+				else
+				{
+					rb(&stack_b_tmp);
+					j++;
+				}
+			}
 		}
-		j = 0;
-		while (j < absolute(best_elem[0]))
+		else if (best_elem[0] < 0 && best_elem[1] < 0)
 		{
-			if (best_elem[0] > 0)
-				ra(&stack_a);
-			else if (best_elem[0] < 0)
-				rra(&stack_a);
-			j++;
+			j = 0;
+			while (j < min(absolute(best_elem[0]), absolute(best_elem[1])))
+			{
+				rrr(&stack_a, &stack_b_tmp);
+				j++;
+			}
+			j = diff(absolute(best_elem[0]), absolute(best_elem[1]));
+			while (j != 0)
+			{
+				if (j > 0)
+				{
+					rra(&stack_a, 1);
+					j--;
+				}
+				else
+				{
+					rrb(&stack_b_tmp);
+					j++;
+				}
+			}
+		}
+		else
+		{	
+			j = 0;
+			while (j < absolute(best_elem[1]))
+			{
+				if (best_elem[1] > 0)
+					rb(&stack_b_tmp);
+				else if (best_elem[1] < 0)
+					rrb(&stack_b_tmp);
+				j++;
+			}
+			j = 0;
+			while (j < absolute(best_elem[0]))
+			{
+				if (best_elem[0] > 0)
+				{
+					ra(&stack_a, 1);
+				}
+				else if (best_elem[0] < 0)
+					rra(&stack_a, 1);
+				j++;
+			}
 		}
 		pa(&stack_a, &stack_b_tmp);
 		i++;
@@ -272,11 +341,12 @@ int	main(int argc, char *argv[])
 	lis = find_lis(stack_a, &tools);
 	stack_b = push_not_exist_to_stack_b(&stack_a, lis, &tools);
 	stack_a = iterate_b(stack_a, &stack_b);
-	stack_a = put_small_at_top(stack_a, ft_lstsize(stack_a));
+	stack_a = put_small_at_top(stack_a, ft_lstsize(stack_a), 1);
+	// print_stacks(stack_a, stack_b);
 	// printf("Here\n");
+	// print_stacks(stack_a, stack_b);
 	// check_if_sorted(stack_a);
 	// printf("NOT SORTED\n");
-	print_stacks(stack_a, stack_b);
 	// system("leaks push_swap");
 	return (0);
 }
