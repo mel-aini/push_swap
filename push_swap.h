@@ -31,5 +31,6 @@ typedef struct	s_tools
 
 int		*find_lis(t_list *stack, t_tools *tools);
 t_list	*put_small_at_top(t_list *stack, int size, int print);
+int		min(int a, int b);
 
 #endif

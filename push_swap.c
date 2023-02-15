@@ -184,6 +184,16 @@ void	find_pos_of_elem_at_stack_a(t_list *stack_a, int elem, int **pos, int index
 	pos[index][0] = pos_of_largest(stack_a_head, size);
 }
 
+int	max_moves(int a, int b)
+{
+	if (a < 0 && b < 0)
+		return (min(absolute(a), absolute(b)) + absolute(absolute(a) - absolute(b)));
+	else if (a > 0 && b > 0)
+		return (min(a, b) + absolute(a - b));
+	else
+		return (absolute(a) + absolute(b));
+}
+
 int	*find_best_elem_at_a_to_push_to_b(t_list *stack_a, t_list *stack_b)
 {
 	int	i;
@@ -214,12 +224,20 @@ int	*find_best_elem_at_a_to_push_to_b(t_list *stack_a, t_list *stack_b)
 	}
 	i = 0;
 	best = 0;
+	// printf("elem %d is [%d, %d]\n", i, pos[i][0], pos[i][1]);
 	while (++i < size)
 	{
-		if (absolute(pos[i][0]) < absolute(pos[i - 1][0]))
+		// printf("elem %d is [%d, %d]\n", i, pos[i][0], pos[i][1]);
+		if (max_moves(pos[i][0], pos[i][1]) < max_moves(pos[best][0], pos[best][1]))
 			best = i;
 		i++;
 	}
+	// while (++i < size)
+	// {
+	// 	if (absolute(pos[i][0]) < absolute(pos[i - 1][0]))
+	// 		best = i;
+	// 	i++;
+	// }
 	return (pos[best]);
 }
 
@@ -250,7 +268,6 @@ t_list	*iterate_b(t_list *stack_a, t_list **stack_b)
 	i = 0;
 	while (i < size_b)
 	{
-		// print_stacks(stack_a, stack_b_tmp);
 		best_elem = find_best_elem_at_a_to_push_to_b(stack_a, stack_b_tmp);
 		// printf("best elem is [%d, %d]\n", best_elem[0], best_elem[1]);
 		if (best_elem[0] > 0 && best_elem[1] > 0)
@@ -261,7 +278,7 @@ t_list	*iterate_b(t_list *stack_a, t_list **stack_b)
 				rr(&stack_a, &stack_b_tmp);
 				j++;
 			}
-			j = diff(best_elem[0], best_elem[0]);
+			j = diff(best_elem[0], best_elem[1]);
 			while (j != 0)
 			{
 				if (j > 0)
@@ -300,7 +317,7 @@ t_list	*iterate_b(t_list *stack_a, t_list **stack_b)
 			}
 		}
 		else
-		{	
+		{
 			j = 0;
 			while (j < absolute(best_elem[1]))
 			{
@@ -324,7 +341,8 @@ t_list	*iterate_b(t_list *stack_a, t_list **stack_b)
 		}
 		pa(&stack_a, &stack_b_tmp);
 		i++;
-		// printf("==============\n");
+		// print_stacks(stack_a, stack_b_tmp);
+		// printf("==================================================================\n");
 	}
 	*stack_b = stack_b_tmp;
 	return (stack_a);
@@ -340,12 +358,14 @@ int	main(int argc, char *argv[])
 	stack_a = parsing(argc, argv);
 	lis = find_lis(stack_a, &tools);
 	stack_b = push_not_exist_to_stack_b(&stack_a, lis, &tools);
+	// printf("===== Before Iterating ====\n");
+	// print_stacks(stack_a, stack_b);
+	// printf("===========================\n");
 	stack_a = iterate_b(stack_a, &stack_b);
 	stack_a = put_small_at_top(stack_a, ft_lstsize(stack_a), 1);
 	// print_stacks(stack_a, stack_b);
 	// printf("Here\n");
-	// print_stacks(stack_a, stack_b);
-	// check_if_sorted(stack_a);
+	check_if_sorted(stack_a);
 	// printf("NOT SORTED\n");
 	// system("leaks push_swap");
 	return (0);
