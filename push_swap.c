@@ -12,53 +12,6 @@
 
 #include "push_swap.h"
 
-int	absolute(int n)
-{
-	if (n > 0)
-		return (n);
-	else if (n < 0)
-		return (n * -1);
-	return (0);
-}
-
-t_list	*push_not_exist_to_stack_b(t_list **stack_a, int *lis, t_tools *tools)
-{
-	t_list	*stack_b;
-	t_list 	*sa_tmp;
-	int		size;
-	int		i;
-	int		j;
-	int		exist;
-
-	sa_tmp = *stack_a;
-	size = ft_lstsize(sa_tmp);
-	stack_b = NULL;
-	if (size == tools->lis_size)
-		return (stack_b);
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		exist = 0;
-		while (j < tools->lis_size)
-		{
-			if (sa_tmp->content == lis[j])
-			{
-				ra(&sa_tmp, 1);
-				*stack_a = sa_tmp;
-				exist = 1;
-				break ;
-			}
-			j++;
-		}
-		if (!exist)
-			pb(&sa_tmp, &stack_b);
-		i++;
-	}
-	*stack_a = sa_tmp;
-	return (stack_b);
-}
-
 void	print_stacks(t_list *stack_a, t_list *stack_b)
 {
 	int	i;
@@ -85,6 +38,130 @@ void	print_stacks(t_list *stack_a, t_list *stack_b)
 		i++;
 	}
 	printf("\n");
+}
+
+int	absolute(int n)
+{
+	if (n > 0)
+		return (n);
+	else if (n < 0)
+		return (n * -1);
+	return (0);
+}
+
+int	find_best_move(t_list *stack, int *lis, int lis_size)
+{
+	int	i;
+	int	best;
+	int	*pos;
+	int	size;
+	int	exist;
+	int	k;
+	int	j;
+	int	n;
+
+	size = ft_lstsize(stack);
+	pos = malloc(sizeof(int) * size - lis_size);
+	i = 0;
+	k = 0;
+	while (i <= size / 2)
+	{
+		j = 0;
+		exist = 0;
+		while (j < lis_size)
+		{
+			if (stack->content == lis[j])
+			{
+				exist = 1;
+				break ;
+			}
+			j++;
+		}
+		if (!exist)
+		{
+			pos[k] = i;
+			k++;
+		}
+		stack = stack->next;
+		i++;
+	}
+	j = ((size / 2) * -1) + (1 - size % 2);
+	while (i < size)
+	{
+		n = 0;
+		exist = 0;
+		while (n < lis_size)
+		{
+			if (stack->content == lis[n])
+			{
+				exist = 1;
+				break ;
+			}
+			n++;
+		}
+		if (!exist)
+		{
+			pos[k] = j;
+			k++;
+		}
+		stack = stack->next;
+		i++;
+		j++;
+	}
+	i = 0;
+	best = i;
+	while (++i < size - lis_size)
+	{
+		if (absolute(pos[i]) < absolute(pos[best]))
+			best = i;
+	}
+	return (pos[best]);
+}
+
+t_list	*push_not_exist_to_stack_b(t_list **stack_a, int *lis, t_tools *tools)
+{
+	t_list	*stack_b;
+	t_list 	*sa_tmp;
+	int		size;
+	int		i;
+	int		j;
+	int		k;
+	int		n;
+	int		exist;
+	int		*pos;
+	int		best;
+
+	sa_tmp = *stack_a;
+	size = ft_lstsize(sa_tmp);
+	stack_b = NULL;
+	if (size == tools->lis_size)
+		return (stack_b);
+	i = 0;
+	while (i < size - tools->lis_size)
+	{
+		best = find_best_move(sa_tmp, lis, tools->lis_size);
+		j = 0;
+		if (best > 0)
+		{
+			while (j < best)
+			{
+				ra(&sa_tmp, 1);
+				j++;
+			}
+		}
+		else if (best < 0)
+		{
+			while (j < absolute(best))
+			{
+				rra(&sa_tmp, 1);
+				j++;
+			}
+		}
+		pb(&sa_tmp, &stack_b);
+		i++;
+	}
+	*stack_a = sa_tmp;
+	return (stack_b);
 }
 
 int	**alloc_pos(t_list *stack_a, int size)
@@ -194,7 +271,7 @@ int	max_moves(int a, int b)
 		return (absolute(a) + absolute(b));
 }
 
-int	*find_best_elem_at_a_to_push_to_b(t_list *stack_a, t_list *stack_b)
+int	*find_best_elem_at_b_to_push_to_a(t_list *stack_a, t_list *stack_b)
 {
 	int	i;
 	int	j;
@@ -208,7 +285,6 @@ int	*find_best_elem_at_a_to_push_to_b(t_list *stack_a, t_list *stack_b)
 	while (i <= size / 2)
 	{
 		pos[i][1] = i;
-		// printf("stack_b->content = %d\n", stack_b->content);
 		find_pos_of_elem_at_stack_a(stack_a, stack_b->content, pos, i);
 		stack_b = stack_b->next;
 		i++;
@@ -224,7 +300,6 @@ int	*find_best_elem_at_a_to_push_to_b(t_list *stack_a, t_list *stack_b)
 	}
 	i = 0;
 	best = 0;
-	// printf("elem %d is [%d, %d]\n", i, pos[i][0], pos[i][1]);
 	while (++i < size)
 	{
 		// printf("elem %d is [%d, %d]\n", i, pos[i][0], pos[i][1]);
@@ -232,12 +307,6 @@ int	*find_best_elem_at_a_to_push_to_b(t_list *stack_a, t_list *stack_b)
 			best = i;
 		i++;
 	}
-	// while (++i < size)
-	// {
-	// 	if (absolute(pos[i][0]) < absolute(pos[i - 1][0]))
-	// 		best = i;
-	// 	i++;
-	// }
 	return (pos[best]);
 }
 
@@ -268,7 +337,7 @@ t_list	*iterate_b(t_list *stack_a, t_list **stack_b)
 	i = 0;
 	while (i < size_b)
 	{
-		best_elem = find_best_elem_at_a_to_push_to_b(stack_a, stack_b_tmp);
+		best_elem = find_best_elem_at_b_to_push_to_a(stack_a, stack_b_tmp);
 		// printf("best elem is [%d, %d]\n", best_elem[0], best_elem[1]);
 		if (best_elem[0] > 0 && best_elem[1] > 0)
 		{
@@ -331,9 +400,7 @@ t_list	*iterate_b(t_list *stack_a, t_list **stack_b)
 			while (j < absolute(best_elem[0]))
 			{
 				if (best_elem[0] > 0)
-				{
 					ra(&stack_a, 1);
-				}
 				else if (best_elem[0] < 0)
 					rra(&stack_a, 1);
 				j++;
@@ -358,15 +425,11 @@ int	main(int argc, char *argv[])
 	stack_a = parsing(argc, argv);
 	lis = find_lis(stack_a, &tools);
 	stack_b = push_not_exist_to_stack_b(&stack_a, lis, &tools);
-	// printf("===== Before Iterating ====\n");
-	// print_stacks(stack_a, stack_b);
-	// printf("===========================\n");
 	stack_a = iterate_b(stack_a, &stack_b);
 	stack_a = put_small_at_top(stack_a, ft_lstsize(stack_a), 1);
 	// print_stacks(stack_a, stack_b);
-	// printf("Here\n");
 	check_if_sorted(stack_a);
-	// printf("NOT SORTED\n");
+	printf("NOT SORTED\n");
 	// system("leaks push_swap");
 	return (0);
 }

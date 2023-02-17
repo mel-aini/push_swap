@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 13:53:40 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/15 14:04:14 by mel-aini         ###   ########.fr       */
+/*   Created: 2023/02/07 16:22:50 by mel-aini          #+#    #+#             */
+/*   Updated: 2023/02/17 18:47:53 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef PARSING_H
+# define PARSING_H
 
-# include "parsing/parsing.h"
-# include "operations/operations.h"
-# include "libft/libft.h"
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-
-# define ERROR "Error\n"
+# include "../checker.h"
 
 typedef struct s_list t_list;
 
-typedef struct	s_tools
-{
-	int	lis_size;
-}				t_tools;
-
-int		*find_lis(t_list *stack, t_tools *tools);
-t_list	*put_small_at_top(t_list *stack, int size, int print);
-int		min(int a, int b);
+t_list	*parsing(int argc, char *argv[]);
+void	check_if_sorted(t_list *stack_a);
+void	invalid_arg(void);
+void	exit_process(void);
 
 #endif

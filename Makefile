@@ -6,11 +6,13 @@
 #    By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 15:02:54 by mel-aini          #+#    #+#              #
-#    Updated: 2023/02/15 11:42:35 by mel-aini         ###   ########.fr        #
+#    Updated: 2023/02/17 18:38:41 by mel-aini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
+
+CHECKER = checker
 
 SRC = push_swap.c find_lis.c \
 	parsing/parsing.c parsing/errors.c \
@@ -19,6 +21,12 @@ SRC = push_swap.c find_lis.c \
 	operations/rra.c operations/rrb.c \
 	operations/rrr.c
 
+SRC_BONUS = checker.c \
+	parsing/parsing.c parsing/errors.c \
+	operations_bonus/sa.c operations_bonus/sb.c operations_bonus/ss.c \
+	operations_bonus/pa.c operations_bonus/pb.c operations_bonus/ra.c operations_bonus/rb.c operations_bonus/rr.c \
+	operations_bonus/rra.c operations_bonus/rrb.c \
+	operations_bonus/rrr.c
 
 SRC_LIBFT = libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_isascii.c libft/ft_isprint.c libft/ft_strlen.c libft/ft_memset.c libft/ft_bzero.c \
 	libft/ft_memcpy.c libft/ft_memmove.c libft/ft_strlcpy.c libft/ft_strlcat.c libft/ft_toupper.c libft/ft_tolower.c libft/ft_strchr.c libft/ft_strrchr.c libft/ft_strncmp.c \
@@ -28,6 +36,8 @@ SRC_LIBFT = libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_is
 	libft/get_next_line/get_next_line.c libft/get_next_line/get_next_line_utils.c
 
 OBJ = $(SRC:.c=.o)
+
+OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
 OBJ_LIBFT = $(SRC_LIBFT:.c=.o)
 
@@ -42,6 +52,9 @@ $(LIBFT) :
 
 $(NAME) : $(OBJ)
 	cc $(LIBFT) $(OBJ) -o $@
+
+bonus : $(checker)
+	cc $(LIBFT) $(OBJ_BONUS) -o $@
 
 %.o : %.c $(HEADERS)
 	cc $(FLAGS) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:22:04 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/17 22:34:33 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:41:56 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ void	check_if_sorted(t_list *stack_a)
 		i++;
 	}
 	if (i == size - 1)
-	{
-		printf("OK\n");
 		exit(EXIT_SUCCESS);
-	}
 }
 
 void	check_if_duplicate(t_list *stack)
@@ -105,5 +102,10 @@ t_list	*parsing(int argc, char *argv[])
 	stack_a = check_if_numbers(argc, argv);
 	check_if_duplicate(stack_a);
 	check_if_sorted(stack_a);
+	if (argc == 3)
+	{
+		sa(&stack_a);
+		exit(EXIT_SUCCESS);
+	}
 	return (stack_a);
 }
