@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:31:48 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/15 15:54:05 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:54:10 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,19 @@ int	longest_index(int *len, int size)
 	return (len[i]);
 }
 
-int	*alloc_lis(t_list *stack, int *len, int *indexes, int size, t_tools	**tools)
+void	alloc_lis(t_list *stack, int *len, int *indexes, int size, t_tools	**tools)
 {
-	int		*lis;
 	int		*lis_indexes;
 	int		l;
 	int		i;
 	int		j;
 	int		k;
 
-	lis = NULL;
+	(*tools)->lis = NULL;
 	l = longest_index(len, size);
 	(*tools)->lis_size = l;
 	lis_indexes = malloc(sizeof(int) * l);
-	lis = malloc(sizeof(int) * l);
+	(*tools)->lis = malloc(sizeof(int) * l);
 	i = 0;
 	while (i < size && len[i] != l)
 		i++;
@@ -87,7 +86,7 @@ int	*alloc_lis(t_list *stack, int *len, int *indexes, int size, t_tools	**tools)
 	{
 		if (i == lis_indexes[j])
 		{
-			lis[j] = stack->content;
+			(*tools)->lis[j] = stack->content;
 			j++;
 		}
 		stack = stack->next;
@@ -96,7 +95,6 @@ int	*alloc_lis(t_list *stack, int *len, int *indexes, int size, t_tools	**tools)
 	free(indexes);
 	free(len);
 	free(lis_indexes);
-	return (lis);
 }
 
 int	*fill_len(int size)
@@ -166,6 +164,11 @@ t_list	*put_small_at_top(t_list *stack, int size, int print)
 	i = 0;
 	while (i <= size / 2)
 	{
+		// if (i == size - 2)
+		// {
+		// 	rra(&stack_head, print);
+		// 	return (stack_head);
+		// }
 		if (tmp->content > tmp->next->content)
 		{
 			while (i >= 0)
@@ -220,7 +223,25 @@ t_list	*dup_stack(t_list *stack, int size)
 	return (dup);
 }
 
-int *find_lis(t_list *stack, t_tools *tools)
+void	free_stack(t_list *stack)
+{
+	int		i;
+	int		size;
+	t_list	*tmp;
+
+	size = ft_lstsize(stack);
+	tmp = stack;
+	i = 0;
+	while (i < size)
+	{
+		tmp = stack;
+		stack = stack->next;
+		free(tmp);
+		i++;
+	}
+}
+
+void	find_lis(t_list *stack, t_tools *tools)
 {
 	int		i;
 	int		j;
@@ -259,5 +280,6 @@ int *find_lis(t_list *stack, t_tools *tools)
 		tmp_tmp = tmp_tmp->next;
 		i++;
 	}
-	return (alloc_lis(tmp_head, len, indexes, size, &tools));
+	alloc_lis(tmp_head, len, indexes, size, &tools);
+	free_stack(tmp_head);
 }

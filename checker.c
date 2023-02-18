@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:25:10 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/17 22:34:52 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:36:28 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	main(int argc, char *argv[])
 	int		i;
 	char	*line;
 
-	stack_a = parsing(argc, argv);
 	stack_b = NULL;
-	line = get_next_line(1);
+	stack_a = parsing(argc, argv);
+	line = get_next_line(0);
 	while (line != NULL)
 	{
 		if (ft_strncmp(line, "sa\n", ft_strlen(line)) == 0)
@@ -47,11 +47,12 @@ int	main(int argc, char *argv[])
 			rrb(&stack_b);
 		else if (ft_strncmp(line, "rrr\n", ft_strlen(line)) == 0)
 			rrr(&stack_a, &stack_b);
+		else
+			ft_error();
 		free(line);
-		line = get_next_line(1);
+		line = get_next_line(0);
 	}
 	check_if_sorted(stack_a);
 	printf("KO\n");
-	// system("leaks push_swap");
 	return (0);
 }

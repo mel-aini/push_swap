@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:22:50 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/17 18:47:53 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:35:00 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_list t_list;
 
 t_list	*parsing(int argc, char *argv[]);
 void	check_if_sorted(t_list *stack_a);
-void	invalid_arg(void);
+void	ft_error(void);
 void	exit_process(void);
 
 #endif

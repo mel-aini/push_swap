@@ -6,13 +6,13 @@
 #    By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 15:02:54 by mel-aini          #+#    #+#              #
-#    Updated: 2023/02/17 18:38:41 by mel-aini         ###   ########.fr        #
+#    Updated: 2023/02/18 11:39:52 by mel-aini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-CHECKER = checker
+NAME_BONUS = checker
 
 SRC = push_swap.c find_lis.c \
 	parsing/parsing.c parsing/errors.c \
@@ -22,7 +22,7 @@ SRC = push_swap.c find_lis.c \
 	operations/rrr.c
 
 SRC_BONUS = checker.c \
-	parsing/parsing.c parsing/errors.c \
+	parsing_bonus/parsing.c parsing_bonus/errors.c \
 	operations_bonus/sa.c operations_bonus/sb.c operations_bonus/ss.c \
 	operations_bonus/pa.c operations_bonus/pb.c operations_bonus/ra.c operations_bonus/rb.c operations_bonus/rr.c \
 	operations_bonus/rra.c operations_bonus/rrb.c \
@@ -53,7 +53,9 @@ $(LIBFT) :
 $(NAME) : $(OBJ)
 	cc $(LIBFT) $(OBJ) -o $@
 
-bonus : $(checker)
+bonus : $(LIBFT) $(NAME_BONUS)
+
+$(NAME_BONUS) : $(OBJ_BONUS)
 	cc $(LIBFT) $(OBJ_BONUS) -o $@
 
 %.o : %.c $(HEADERS)
