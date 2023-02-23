@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:53:40 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/18 12:28:38 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:34:36 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,37 @@
 # define PUSH_SWAP_H
 
 # include "parsing/parsing.h"
+# include "push_swap_utils/push_swap_utils.h"
 # include "operations/operations.h"
 # include "libft/libft.h"
+# include "find_lis/find_lis.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
 
 # define ERROR "Error\n"
 
-typedef struct s_list t_list;
+typedef struct s_list	t_list;
 
-typedef struct	s_tools
+typedef struct s_tools
 {
-	int	*lis;
-	int	lis_size;
-	int	**pos;
-	int	sb_size;
-	int	*pos_b;
+	int		**len;
+	int		**indexes;
+	int		*lis;
+	int		lis_size;
+	int		*lis_indexes;
+	int		**pos;
+	int		sb_size;
+	int		*pos_b;
+	t_list	**tmp_stack;
+	t_list	*best_lis;
+	int		index;
+	int		stack_size;
 }				t_tools;
 
-void	find_lis(t_list *stack, t_tools *tools);
-t_list	*put_small_at_top(t_list *stack, int size, int print);
-int		min(int a, int b);
+// void	sort_3_nums(t_list *stack_a);
+// // t_list	*put_small_at_top(t_list *stack, int size, int print);
+// int		min(int a, int b);
+// void	print_stacks(t_list *stack_a, t_list *stack_b);
 
 #endif

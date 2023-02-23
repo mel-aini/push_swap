@@ -6,7 +6,7 @@
 #    By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 15:02:54 by mel-aini          #+#    #+#              #
-#    Updated: 2023/02/18 11:39:52 by mel-aini         ###   ########.fr        #
+#    Updated: 2023/02/23 18:33:53 by mel-aini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,13 @@ NAME = push_swap
 
 NAME_BONUS = checker
 
-SRC = push_swap.c find_lis.c \
+HEADERS = push_swap.h find_lis/find_lis.h
+
+SRC = push_swap.c find_lis/find_lis.c find_lis/find_lis_utils.c find_lis/find_lis_utils_2.c \
 	parsing/parsing.c parsing/errors.c \
+	push_swap_utils/sort_small_nums.c push_swap_utils/push_not_exist_to_stack_b.c \
+	push_swap_utils/iterate_stack_b.c push_swap_utils/iterate_stack_b_2.c \
+	push_swap_utils/small_functions.c push_swap_utils/put_small_at_top.c\
 	operations/sa.c operations/sb.c operations/ss.c \
 	operations/pa.c operations/pb.c operations/ra.c operations/rb.c operations/rr.c \
 	operations/rra.c operations/rrb.c \
@@ -43,7 +48,7 @@ OBJ_LIBFT = $(SRC_LIBFT:.c=.o)
 
 LIBFT = libft/libft.a
 
-# FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 all : $(LIBFT) $(NAME)
 

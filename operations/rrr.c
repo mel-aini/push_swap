@@ -15,10 +15,10 @@
 void    rrr(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*tmp;
-	t_list	*new;
 	t_list	*ptr;
 	int		i;
-	int		size;	
+	int		size;
+
 	size = ft_lstsize(*stack_a);
 	if (size > 1)
 	{

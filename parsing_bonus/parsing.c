@@ -6,11 +6,26 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:22:04 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/18 18:34:18 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/20 08:59:56 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+void	free_arg(char **arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i] != NULL)
+	{
+		free(arg[i]);
+		arg[i] = NULL;
+		i++;
+	}
+	free(arg);
+	arg = NULL;
+}
 
 t_list	*check_if_numbers(int argc, char *argv[])
 {
@@ -46,6 +61,7 @@ t_list	*check_if_numbers(int argc, char *argv[])
 				ft_lstadd_back(&stack_a, ft_lstnew(ft_atoi(arg[j])));
 				j++;
 			}
+			free_arg(arg);
 		}
 		i++;
 	}

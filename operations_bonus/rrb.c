@@ -15,7 +15,6 @@
 void    rrb(t_list **stack_b)
 {
     t_list  *tmp;
-    t_list  *new;
     t_list  *ptr;
     int     i;
     int     size;

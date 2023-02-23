@@ -15,12 +15,14 @@
 void    rb(t_list **stack_b)
 {
     t_list *tmp;
-    t_list	*ptr;
-
+	t_list	*ptr;
+	
 	ptr = *stack_b;
-    tmp = ft_lstnew((*stack_b)->content);
-    *stack_b = (*stack_b)->next;
-    while (ptr->next != NULL)
+	tmp = ft_lstnew((*stack_b)->content);
+	*stack_b = (*stack_b)->next;
+	free(ptr);
+	ptr = *stack_b;
+	while (ptr->next != NULL)
 		ptr = ptr->next;
 	ptr->next = tmp;
 	printf("rb\n");

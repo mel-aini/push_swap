@@ -28,11 +28,4 @@ void    ss(t_list **stack_a, t_list **stack_b)
         (*stack_b)->content = (*stack_b)->next->content;
         (*stack_b)->next->content = tmp;
     }
-    // t_list *stack_a_tmp;
-    // t_list *stack_b_tmp;
-
-    // stack_a_tmp = *stack_a;
-    // stack_a_tmp = *stack_b;
-    // sa(&stack_a_tmp);
-    //sb(&stack_b_tmp);
 }

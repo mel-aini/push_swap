@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:22:04 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/18 18:43:28 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:02:50 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ t_list	*check_if_numbers(int argc, char *argv[])
 	stack_a = NULL;
 	while (i < argc)
 	{
-		if (ft_strchr(argv[i], ' ') == 0)
-		{
-			if (ft_atoi(argv[i]) == 0)
-			{
-				if (ft_strncmp(argv[i], "0", ft_strlen(argv[i])) != 0)
-					ft_error();
-			}
-			ft_lstadd_back(&stack_a, ft_lstnew(ft_atoi(argv[i])));
-		}
-		else
-		{
+		// if (ft_strchr(argv[i], ' ') == 0)
+		// {
+		// 	if (ft_atoi(argv[i]) == 0)
+		// 	{
+		// 		if (ft_strncmp(argv[i], "0", ft_strlen(argv[i])) != 0)
+		// 			ft_error();
+		// 	}
+		// 	ft_lstadd_back(&stack_a, ft_lstnew(ft_atoi(argv[i])));
+		// }
+		// else
+		// {
 			arg = ft_split(argv[i], ' ');
 			j = 0;
 			while (arg[j])
@@ -62,7 +62,7 @@ t_list	*check_if_numbers(int argc, char *argv[])
 				j++;
 			}
 			free_arg(arg);
-		}
+		// }
 		i++;
 	}
 	return (stack_a);
@@ -81,7 +81,7 @@ int	check_if_sorted(t_list *stack_a)
 		i++;
 	}
 	if (i == size - 1)
-		exit(EXIT_SUCCESS);
+		return(1);
 	return (0);
 }
 

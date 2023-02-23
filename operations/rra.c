@@ -15,7 +15,6 @@
 void    rra(t_list **stack_a, int print)
 {
 	t_list	*tmp;
-	t_list	*new;
 	t_list	*ptr;
 	int		i;
 	int		size;
