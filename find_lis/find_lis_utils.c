@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 18:14:23 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/23 16:00:17 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/24 10:55:43 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,21 @@ t_list	*rotate_stack(t_list *stack_head, int i, int limit)
 t_list	*put_small_of_tmp_at_top(t_list *stack, int size)
 {
 	t_list	*tmp;
-	t_list	*tmp2;
 	t_list	*stack_head;
 	int		i;
-	int		j;
 
 	stack_head = stack;
 	tmp = stack;
 	i = 0;
-	while (++i < size)
+	while (i < size)
 	{
-		j = -1;
-		tmp2 = stack_head;
-		while (++j < size && tmp->content < tmp2->content)
-			tmp2 = tmp2->next;
-		if (j == size)
+		if (smallest(stack, tmp->content, size))
 		{
 			stack_head = rotate_stack(stack_head, i, 0);
 			break ;
 		}
-		tmp = tmp->next;
 		i++;
+		tmp = tmp->next;
 	}
 	return (stack_head);
 }
@@ -53,27 +47,21 @@ t_list	*put_small_of_tmp_at_top(t_list *stack, int size)
 t_list	*put_max_of_tmp_at_bottom(t_list *stack, int size)
 {
 	t_list	*tmp;
-	t_list	*tmp2;
 	t_list	*stack_head;
 	int		i;
-	int		j;
 
 	stack_head = stack;
 	tmp = stack;
 	i = 0;
 	while (i < size)
 	{
-		j = -1;
-		tmp2 = stack_head;
-		while (++j < size && tmp->content < tmp2->content)
-			tmp2 = tmp2->next;
-		if (j == size)
+		if (biggest(stack, tmp->content, size))
 		{
 			stack_head = rotate_stack(stack_head, i, -1);
 			break ;
 		}
-		tmp = tmp->next;
 		i++;
+		tmp = tmp->next;
 	}
 	return (stack_head);
 }

@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:25:49 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/23 18:31:27 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:28:58 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,22 @@ int	**alloc_pos(int size)
 		i++;
 	}
 	return (pos);
+}
+
+int	minimum_moves(int **pos, int size)
+{
+	int	i;
+	int	best;
+
+	i = 0;
+	best = 0;
+	while (++i < size)
+	{
+		if (max_moves(pos[i][0], pos[i][1])
+			< max_moves(pos[best][0], pos[best][1]))
+			best = i;
+	}
+	return (best);
 }
 
 int	pos_of_smallest(t_list *stack_a, int size)

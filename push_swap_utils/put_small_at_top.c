@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:32:37 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/23 18:40:59 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:20:44 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_list	*put_small_at_top(t_list *stack, int size, int print)
 	stack_head = stack;
 	i = 0;
 	if (check_if_sorted(stack))
-		exit(EXIT_SUCCESS);
+		return (stack_head);
 	while (i < size)
 	{
 		if (stack->content > stack->next->content)

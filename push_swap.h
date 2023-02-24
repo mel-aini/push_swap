@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:53:40 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/23 16:34:36 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/24 10:35:06 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ typedef struct s_tools
 	int		stack_size;
 }				t_tools;
 
-// void	sort_3_nums(t_list *stack_a);
-// // t_list	*put_small_at_top(t_list *stack, int size, int print);
-// int		min(int a, int b);
-// void	print_stacks(t_list *stack_a, t_list *stack_b);
+void	print_stacks(t_list *stack_a, t_list *stack_b);
 
 #endif

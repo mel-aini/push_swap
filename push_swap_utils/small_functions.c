@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:21:59 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/23 18:25:08 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:18:43 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ int	absolute(int n)
 	return (0);
 }
 
-void	free_pos(t_tools **tools)
+void	free_pos(t_tools **tools, int size_b)
 {
 	int	i;
 
 	i = 0;
-	while (i < (*tools)->sb_size)
+	while (i < size_b)
 	{
 		free((*tools)->pos[i]);
 		(*tools)->pos[i] = NULL;

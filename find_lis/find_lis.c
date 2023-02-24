@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:31:48 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/23 16:17:19 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/24 18:45:13 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	find_longest_lis(t_tools *tools, int size)
 	i = 1;
 	tools->best_lis = tools->tmp_stack[0];
 	tools->lis_size = tmp_lis[0];
+	tools->index = 0;
 	while (i < 3)
 	{
 		if (tmp_lis[i] > tmp_lis[i - 1])

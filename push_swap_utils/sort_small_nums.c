@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:21:21 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/23 18:27:51 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:43:20 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	biggest(t_list *stack_a, int elem, int size)
 {
 	int	i;
 
-	i = 0; 
+	i = 0;
 	while (i < size)
 	{
 		if (elem < stack_a->content)
@@ -67,20 +67,25 @@ void	bring_small_to_top(t_list **stack_a, t_list **stack_b, int size, int j)
 	pb(stack_a, stack_b);
 }
 
-void	sort_3_nums(t_list *stack_a)
+void	sort_3_nums(t_list *stack_a, int size)
 {
-	while (!check_if_sorted(stack_a))
-	{
-		if (stack_a->content < stack_a->next->content
-			&& stack_a->next->content > stack_a->next->next->content)
-			rra(&stack_a, 1);
-		else if (stack_a->content > stack_a->next->content
-			&& stack_a->next->content > stack_a->next->next->content)
-			ra(&stack_a, 1);
-		else if (stack_a->content > stack_a->next->content)
-			sa(&stack_a);
-		else
-			ra(&stack_a, 1);
+	if (size == 2)
+		sa(&stack_a);
+	else
+	{	
+		while (!check_if_sorted(stack_a))
+		{
+			if (stack_a->content < stack_a->next->content
+				&& stack_a->next->content > stack_a->next->next->content)
+				rra(&stack_a, 1);
+			else if (stack_a->content > stack_a->next->content
+				&& stack_a->next->content > stack_a->next->next->content)
+				ra(&stack_a, 1);
+			else if (stack_a->content > stack_a->next->content)
+				sa(&stack_a);
+			else
+				ra(&stack_a, 1);
+		}
 	}
 }
 
@@ -92,7 +97,7 @@ void	sort_5_nums(t_list *stack_a, t_list *stack_b, int size)
 
 	tmp = stack_a;
 	i = -1;
-	while (++i < 2)
+	while (++i < size - 3)
 	{
 		j = 0;
 		tmp = stack_a;
@@ -107,7 +112,8 @@ void	sort_5_nums(t_list *stack_a, t_list *stack_b, int size)
 			j++;
 		}
 	}
-	sort_3_nums(stack_a);
-	pa(&stack_a, &stack_b);
-	pa(&stack_a, &stack_b);
+	sort_3_nums(stack_a, 3);
+	i = -1;
+	while (++i < size - 3)
+		pa(&stack_a, &stack_b);
 }

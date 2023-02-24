@@ -6,112 +6,115 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:13:42 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/23 18:43:53 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:28:44 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_utils.h"
 
-int	*best_to_push_to_a(t_list *stack_a, t_list *stack_b, t_tools **tools)
+int	*best_move(t_list *stack_a, t_list *stack_b, t_tools **tools, int size)
 {
 	int	i;
-	int	j;
 	int	**pos;
 	int	best;
 
-	(*tools)->sb_size = ft_lstsize(stack_b);
-	pos = alloc_pos((*tools)->sb_size);
+	pos = alloc_pos(size);
 	(*tools)->pos = pos;
 	i = 0;
-	while (i <= (*tools)->sb_size / 2)
+	while (i < size)
 	{
-		pos[i][1] = i;
+		if (i <= size / 2)
+			pos[i][1] = i;
+		else
+			pos[i][1] = (size - i) * -1;
 		elem_pos_at_a(stack_a, stack_b->content, pos, i);
 		stack_b = stack_b->next;
 		i++;
 	}
-	j = (((*tools)->sb_size / 2) * -1) + (1 - (*tools)->sb_size % 2);
-	while (i < (*tools)->sb_size)
-	{
-		pos[i][1] = j;
-		elem_pos_at_a(stack_a, stack_b->content, pos, i);
-		stack_b = stack_b->next;
-		i++;
-		j++;
-	}
-	i = 0;
-	best = 0;
-	while (++i < (*tools)->sb_size)
-	{
-		if (max_moves(pos[i][0], pos[i][1]) < max_moves(pos[best][0], pos[best][1]))
-			best = i;
-	}
+	best = minimum_moves(pos, size);
 	return (pos[best]);
 }
 
 void	repeat_rr(t_list **stack_a, t_list **stack_b, int a, int b)
 {
 	int	j;
-	t_list	*sb_tmp;
-	t_list	*sa_tmp;
 
-	sa_tmp = *stack_a;
-	sb_tmp = *stack_b;
-	j = -1;
-	while (++j < min(a, b))
-		rr(&sa_tmp, &sb_tmp);
+	j = 0;
+	while (j < min(a, b))
+	{
+		rr(&(*stack_a), &(*stack_b));
+		j++;
+	}
 	j = diff(a, b);
 	while (j != 0)
 	{
 		if (j > 0)
 		{
-			ra(&sa_tmp, 1);
+			ra(&(*stack_a), 1);
 			j--;
 		}
 		else
 		{
-			rb(&sb_tmp);
+			rb(&(*stack_b));
 			j++;
 		}
 	}
-	*stack_a = sa_tmp;
-	*stack_b = sb_tmp;
 }
 
 void	repeat_rrr(t_list **stack_a, t_list **stack_b, int a, int b)
 {
-	t_list	*sb_tmp;
-	t_list	*sa_tmp;
 	int		j;
 
-	sa_tmp = *stack_a;
-	sb_tmp = *stack_b;
-	j = -1;
-	while (++j < min(absolute(a), absolute(b)))
-		rrr(&sa_tmp, &sb_tmp);
+	j = 0;
+	while (j < min(absolute(a), absolute(b)))
+	{
+		rrr(&(*stack_a), &(*stack_b));
+		j++;
+	}
 	j = diff(absolute(a), absolute(b));
 	while (j != 0)
 	{
 		if (j > 0)
 		{
-			rra(&sa_tmp, 1);
+			rra(&(*stack_a), 1);
 			j--;
 		}
 		else
 		{
-			rrb(&sb_tmp);
+			rrb(&(*stack_b));
 			j++;
 		}
 	}
-	*stack_a = sa_tmp;
-	*stack_b = sb_tmp;
+}
+
+void	unique_moves(t_list **stack_a, t_list **stack_b, int a, int b)
+{
+	int	j;
+
+	j = 0;
+	while (j < absolute(b))
+	{
+		if (b > 0)
+			rb(&(*stack_b));
+		else if (b < 0)
+			rrb(&(*stack_b));
+		j++;
+	}
+	j = 0;
+	while (j < absolute(a))
+	{
+		if (a > 0)
+			ra(&(*stack_a), 1);
+		else if (a < 0)
+			rra(&(*stack_a), 1);
+		j++;
+	}
 }
 
 t_list	*iterate_b(t_list *stack_a, t_list **stack_b, t_tools *tools)
 {
-	int		*best_elem;
 	int		i;
-	int		j;
+	int		*best_elem;
 	int		size_b;
 	t_list	*stack_b_tmp;
 
@@ -120,33 +123,14 @@ t_list	*iterate_b(t_list *stack_a, t_list **stack_b, t_tools *tools)
 	i = 0;
 	while (i < size_b)
 	{
-		best_elem = best_to_push_to_a(stack_a, stack_b_tmp, &tools);
+		best_elem = best_move(stack_a, stack_b_tmp, &tools, size_b - i);
 		if (best_elem[0] > 0 && best_elem[1] > 0)
 			repeat_rr(&stack_a, &stack_b_tmp, best_elem[0], best_elem[1]);
 		else if (best_elem[0] < 0 && best_elem[1] < 0)
 			repeat_rrr(&stack_a, &stack_b_tmp, best_elem[0], best_elem[1]);
 		else
-		{
-			j = 0;
-			while (j < absolute(best_elem[1]))
-			{
-				if (best_elem[1] > 0)
-					rb(&stack_b_tmp);
-				else if (best_elem[1] < 0)
-					rrb(&stack_b_tmp);
-				j++;
-			}
-			j = 0;
-			while (j < absolute(best_elem[0]))
-			{
-				if (best_elem[0] > 0)
-					ra(&stack_a, 1);
-				else if (best_elem[0] < 0)
-					rra(&stack_a, 1);
-				j++;
-			}
-		}
-		free_pos(&tools);
+			unique_moves(&stack_a, &stack_b_tmp, best_elem[0], best_elem[1]);
+		free_pos(&tools, size_b - i);
 		pa(&stack_a, &stack_b_tmp);
 		i++;
 	}
