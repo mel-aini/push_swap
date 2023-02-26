@@ -12,23 +12,21 @@
 
 #include "operations.h"
 
-void    pb(t_list **stack_a, t_list **stack_b)
+void	pb(t_list **stack_a, t_list **stack_b, int print)
 {
-    t_list  *tmp;
-    t_list  *new;
+	t_list	*tmp;
+	t_list	*new;
 
-	// printf("Here\n");
-    if (ft_lstsize(*stack_a) > 0)
-    {
-        new = ft_lstnew((*stack_a)->content);
-		// printf("in pb : %d\n", (*stack_a)->content);
-	    new->next = *stack_b;
-	    *stack_b = new;
-        // delete node in stack a
-        tmp = *stack_a;
-        *stack_a = (*stack_a)->next;
-        free(tmp);
-        tmp = NULL;
-		printf("pb\n");
-    }
+	if (ft_lstsize(*stack_a) > 0)
+	{
+		new = ft_lstnew((*stack_a)->content);
+		new->next = *stack_b;
+		*stack_b = new;
+		tmp = *stack_a;
+		*stack_a = (*stack_a)->next;
+		free(tmp);
+		tmp = NULL;
+		if (print)
+			printf("pb\n");
+	}
 }

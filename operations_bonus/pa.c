@@ -12,20 +12,21 @@
 
 #include "operations.h"
 
-void    pa(t_list **stack_a, t_list **stack_b)
+void	pa(t_list **stack_a, t_list **stack_b, int print)
 {
-    t_list  *tmp;
-    t_list  *new;
+	t_list	*tmp;
+	t_list	*new;
 
-    if (ft_lstsize(*stack_b) > 0)
-    {
-        new = ft_lstnew((*stack_b)->content);
-	    new->next = *stack_a;
-	    *stack_a = new;
-        // delete node in stack b
-        tmp = *stack_b;
-        *stack_b = (*stack_b)->next;
-        free(tmp);
-        tmp = NULL;
-    }
+	if (ft_lstsize(*stack_b) > 0)
+	{
+		new = ft_lstnew((*stack_b)->content);
+		new->next = *stack_a;
+		*stack_a = new;
+		tmp = *stack_b;
+		*stack_b = (*stack_b)->next;
+		free(tmp);
+		tmp = NULL;
+		if (print)
+			printf("pa\n");
+	}
 }

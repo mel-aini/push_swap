@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:13:42 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/24 09:28:44 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/25 19:00:42 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	repeat_rr(t_list **stack_a, t_list **stack_b, int a, int b)
 	j = 0;
 	while (j < min(a, b))
 	{
-		rr(&(*stack_a), &(*stack_b));
+		rr(&(*stack_a), &(*stack_b), 1);
 		j++;
 	}
 	j = diff(a, b);
@@ -55,7 +55,7 @@ void	repeat_rr(t_list **stack_a, t_list **stack_b, int a, int b)
 		}
 		else
 		{
-			rb(&(*stack_b));
+			rb(&(*stack_b), 1);
 			j++;
 		}
 	}
@@ -68,7 +68,7 @@ void	repeat_rrr(t_list **stack_a, t_list **stack_b, int a, int b)
 	j = 0;
 	while (j < min(absolute(a), absolute(b)))
 	{
-		rrr(&(*stack_a), &(*stack_b));
+		rrr(&(*stack_a), &(*stack_b), 1);
 		j++;
 	}
 	j = diff(absolute(a), absolute(b));
@@ -81,7 +81,7 @@ void	repeat_rrr(t_list **stack_a, t_list **stack_b, int a, int b)
 		}
 		else
 		{
-			rrb(&(*stack_b));
+			rrb(&(*stack_b), 1);
 			j++;
 		}
 	}
@@ -95,9 +95,9 @@ void	unique_moves(t_list **stack_a, t_list **stack_b, int a, int b)
 	while (j < absolute(b))
 	{
 		if (b > 0)
-			rb(&(*stack_b));
+			rb(&(*stack_b), 1);
 		else if (b < 0)
-			rrb(&(*stack_b));
+			rrb(&(*stack_b), 1);
 		j++;
 	}
 	j = 0;
@@ -131,7 +131,7 @@ t_list	*iterate_b(t_list *stack_a, t_list **stack_b, t_tools *tools)
 		else
 			unique_moves(&stack_a, &stack_b_tmp, best_elem[0], best_elem[1]);
 		free_pos(&tools, size_b - i);
-		pa(&stack_a, &stack_b_tmp);
+		pa(&stack_a, &stack_b_tmp, 1);
 		i++;
 	}
 	*stack_b = stack_b_tmp;

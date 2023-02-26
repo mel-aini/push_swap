@@ -6,32 +6,34 @@
 #    By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 15:02:54 by mel-aini          #+#    #+#              #
-#    Updated: 2023/02/23 18:33:53 by mel-aini         ###   ########.fr        #
+#    Updated: 2023/02/26 12:29:20 by mel-aini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
+LIBFT_HEADERS = libft/libft.h libft/get_next_line/get_next_line.h
+
 NAME_BONUS = checker
 
 HEADERS = push_swap.h find_lis/find_lis.h
 
-SRC = push_swap.c find_lis/find_lis.c find_lis/find_lis_utils.c find_lis/find_lis_utils_2.c \
-	parsing/parsing.c parsing/errors.c \
+SRC = push_swap.c find_lis/find_lis.c find_lis/find_lis_utils.c \
+	parsing/parsing.c parsing/parsing_utils.c parsing/errors.c \
 	push_swap_utils/sort_small_nums.c push_swap_utils/push_not_exist_to_stack_b.c \
 	push_swap_utils/iterate_stack_b.c push_swap_utils/iterate_stack_b_2.c \
 	push_swap_utils/small_functions.c push_swap_utils/put_small_at_top.c\
 	operations/sa.c operations/sb.c operations/ss.c \
-	operations/pa.c operations/pb.c operations/ra.c operations/rb.c operations/rr.c \
-	operations/rra.c operations/rrb.c \
-	operations/rrr.c
+	operations/pa.c operations/pb.c \
+	operations/ra.c operations/rb.c operations/rr.c \
+	operations/rra.c operations/rrb.c operations/rrr.c
 
 SRC_BONUS = checker.c \
-	parsing_bonus/parsing.c parsing_bonus/errors.c \
+	parsing_bonus/parsing.c parsing_bonus/parsing_utils.cparsing_bonus/errors.c \
 	operations_bonus/sa.c operations_bonus/sb.c operations_bonus/ss.c \
-	operations_bonus/pa.c operations_bonus/pb.c operations_bonus/ra.c operations_bonus/rb.c operations_bonus/rr.c \
-	operations_bonus/rra.c operations_bonus/rrb.c \
-	operations_bonus/rrr.c
+	operations_bonus/pa.c operations_bonus/pb.c \
+	operations_bonus/ra.c operations_bonus/rb.c operations_bonus/rr.c \
+	operations_bonus/rra.c operations_bonus/rrb.c operations_bonus/rrr.c
 
 SRC_LIBFT = libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_isascii.c libft/ft_isprint.c libft/ft_strlen.c libft/ft_memset.c libft/ft_bzero.c \
 	libft/ft_memcpy.c libft/ft_memmove.c libft/ft_strlcpy.c libft/ft_strlcat.c libft/ft_toupper.c libft/ft_tolower.c libft/ft_strchr.c libft/ft_strrchr.c libft/ft_strncmp.c \
@@ -52,7 +54,7 @@ FLAGS = -Wall -Wextra -Werror
 
 all : $(LIBFT) $(NAME)
 
-$(LIBFT) :
+$(LIBFT) : $(OBJ_LIBFT) $(LIBFT_HEADERS)
 	make -C libft/
 
 $(NAME) : $(OBJ)

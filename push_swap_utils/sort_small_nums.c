@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:21:21 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/24 09:43:20 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/26 12:14:59 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	smallest(t_list *stack_a, int elem, int size)
 {
 	int	i;
 
-	i = 0; 
+	i = 0;
 	while (i < size)
 	{
 		if (elem > stack_a->content)
@@ -64,13 +64,13 @@ void	bring_small_to_top(t_list **stack_a, t_list **stack_b, int size, int j)
 			pos++;
 		}
 	}
-	pb(stack_a, stack_b);
+	pb(stack_a, stack_b, 1);
 }
 
-void	sort_3_nums(t_list *stack_a, int size)
+t_list	*sort_3_nums(t_list *stack_a, int size)
 {
 	if (size == 2)
-		sa(&stack_a);
+		sa(&stack_a, 1);
 	else
 	{	
 		while (!check_if_sorted(stack_a))
@@ -82,14 +82,15 @@ void	sort_3_nums(t_list *stack_a, int size)
 				&& stack_a->next->content > stack_a->next->next->content)
 				ra(&stack_a, 1);
 			else if (stack_a->content > stack_a->next->content)
-				sa(&stack_a);
+				sa(&stack_a, 1);
 			else
 				ra(&stack_a, 1);
 		}
 	}
+	return (stack_a);
 }
 
-void	sort_5_nums(t_list *stack_a, t_list *stack_b, int size)
+t_list	*sort_5_nums(t_list *stack_a, t_list *stack_b, int size)
 {
 	int		i;
 	int		j;
@@ -99,9 +100,9 @@ void	sort_5_nums(t_list *stack_a, t_list *stack_b, int size)
 	i = -1;
 	while (++i < size - 3)
 	{
-		j = 0;
+		j = -1;
 		tmp = stack_a;
-		while (j < size - i)
+		while (++j < size - i)
 		{
 			if (smallest(stack_a, tmp->content, size - i))
 			{
@@ -109,11 +110,11 @@ void	sort_5_nums(t_list *stack_a, t_list *stack_b, int size)
 				break ;
 			}
 			tmp = tmp->next;
-			j++;
 		}
 	}
-	sort_3_nums(stack_a, 3);
+	stack_a = sort_3_nums(stack_a, 3);
 	i = -1;
 	while (++i < size - 3)
-		pa(&stack_a, &stack_b);
+		pa(&stack_a, &stack_b, 1);
+	return (stack_a);
 }

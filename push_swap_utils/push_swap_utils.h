@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:22:15 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/24 09:42:13 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/26 12:01:59 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ typedef struct s_list	t_list;
 
 typedef struct s_tools	t_tools;
 
-void	sort_3_nums(t_list *stack_a, int size);
-void	sort_5_nums(t_list *stack_a, t_list *stack_b, int size);
+t_list	*sort_3_nums(t_list *stack_a, int size);
+t_list	*sort_5_nums(t_list *stack_a, t_list *stack_b, int size);
 void	bring_small_to_top(t_list **stack_a, t_list **stack_b, int size, int j);
 int		smallest(t_list *stack_a, int elem, int size);
 int		biggest(t_list *stack_a, int elem, int size);

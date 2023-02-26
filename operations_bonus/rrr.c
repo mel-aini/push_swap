@@ -12,43 +12,10 @@
 
 #include "operations.h"
 
-void    rrr(t_list **stack_a, t_list **stack_b)
+void	rrr(t_list **stack_a, t_list **stack_b, int print)
 {
-	t_list	*tmp;
-	t_list	*ptr;
-	int		i;
-	int		size;
-
-	size = ft_lstsize(*stack_a);
-	if (size > 1)
-	{
-		ptr = *stack_a;
-		i = 1;
-		while (ptr->next != NULL)
-		{
-		    if (i == size - 1)
-		        tmp = ptr;
-		    ptr = ptr->next;
-		    i++;
-		}
-		ptr->next = *stack_a;
-		*stack_a = ptr;
-		tmp->next = NULL;
-	}
-	size = ft_lstsize(*stack_b);
-	if (size > 1)
-	{
-		ptr = *stack_b;
-		i = 1;
-		while (ptr->next != NULL)
-		{
-		    if (i == size - 1)
-		        tmp = ptr;
-		    ptr = ptr->next;
-		    i++;
-		}
-		ptr->next = *stack_b;
-		*stack_b = ptr;
-		tmp->next = NULL;
-	}
+	rra(stack_a, 0);
+	rrb(stack_b, 0);
+	if (print)
+		printf("rrr\n");
 }

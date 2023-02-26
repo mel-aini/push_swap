@@ -6,13 +6,13 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 20:50:30 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/07 17:55:37 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:53:56 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	int				i;
 	int				sign;

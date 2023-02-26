@@ -12,11 +12,11 @@
 
 #include "operations.h"
 
-void    ra(t_list **stack_a, int print)
+void	ra(t_list **stack_a, int print)
 {
-	t_list *tmp;
+	t_list	*tmp;
 	t_list	*ptr;
-	
+
 	ptr = *stack_a;
 	tmp = ft_lstnew((*stack_a)->content);
 	*stack_a = (*stack_a)->next;

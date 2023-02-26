@@ -12,27 +12,29 @@
 
 #include "operations.h"
 
-void    rrb(t_list **stack_b)
+void	rrb(t_list **stack_b, int print)
 {
-    t_list  *tmp;
-    t_list  *ptr;
-    int     i;
-    int     size;
+	t_list	*tmp;
+	t_list	*ptr;
+	int		i;
+	int		size;
 
-    size = ft_lstsize(*stack_b);
-    if (size > 1)
-    {
-        ptr = *stack_b;
-        i = 1;
-        while (ptr->next != NULL)
-        {
-            if (i == size - 1)
-                tmp = ptr;
-            ptr = ptr->next;
-            i++;
-        }
-	    ptr->next = *stack_b;
-	    *stack_b = ptr;
-        tmp->next = NULL;
-    }
+	size = ft_lstsize(*stack_b);
+	if (size > 1)
+	{
+		ptr = *stack_b;
+		i = 1;
+		while (ptr->next != NULL)
+		{
+			if (i == size - 1)
+				tmp = ptr;
+			ptr = ptr->next;
+			i++;
+		}
+		ptr->next = *stack_b;
+		*stack_b = ptr;
+		tmp->next = NULL;
+		if (print)
+			printf("rrb\n");
+	}
 }

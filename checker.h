@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:53:40 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/17 18:49:20 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/02/25 19:28:47 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@
 
 # define ERROR "Error\n"
 
-typedef struct s_list t_list;
+typedef struct s_list	t_list;
 
 #endif

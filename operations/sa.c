@@ -12,15 +12,16 @@
 
 #include "operations.h"
 
-void    sa(t_list **stack_a)
+void	sa(t_list **stack_a, int print)
 {
-    int tmp;
+	int	tmp;
 
-    if (ft_lstsize(*stack_a) > 1)
-    {
-        tmp = (*stack_a)->content;
-        (*stack_a)->content = (*stack_a)->next->content;
-        (*stack_a)->next->content = tmp;
-		printf("sa\n");
-    }
+	if (ft_lstsize(*stack_a) > 1)
+	{
+		tmp = (*stack_a)->content;
+		(*stack_a)->content = (*stack_a)->next->content;
+		(*stack_a)->next->content = tmp;
+		if (print)
+			printf("sa\n");
+	}
 }
