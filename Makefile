@@ -6,75 +6,71 @@
 #    By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 15:02:54 by mel-aini          #+#    #+#              #
-#    Updated: 2023/02/26 12:29:20 by mel-aini         ###   ########.fr        #
+#    Updated: 2023/05/03 15:44:31 by mel-aini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-LIBFT_HEADERS = libft/libft.h libft/get_next_line/get_next_line.h
-
 NAME_BONUS = checker
 
-HEADERS = push_swap.h find_lis/find_lis.h
+HEADERS = mandatory/push_swap.h mandatory/parsing/parsing.h mandatory/find_lis/find_lis.h \
+	mandatory/push_swap_utils/push_swap_utils.h mandatory/operations/operations.h mandatory/helpers/helpers.h
 
-SRC = push_swap.c find_lis/find_lis.c find_lis/find_lis_utils.c \
-	parsing/parsing.c parsing/parsing_utils.c parsing/errors.c \
-	push_swap_utils/sort_small_nums.c push_swap_utils/push_not_exist_to_stack_b.c \
-	push_swap_utils/iterate_stack_b.c push_swap_utils/iterate_stack_b_2.c \
-	push_swap_utils/small_functions.c push_swap_utils/put_small_at_top.c\
-	operations/sa.c operations/sb.c operations/ss.c \
-	operations/pa.c operations/pb.c \
-	operations/ra.c operations/rb.c operations/rr.c \
-	operations/rra.c operations/rrb.c operations/rrr.c
+HEADERS_BONUS = bonus/checker.h bonus/parsing/parsing.h bonus/operations/operations.h bonus/helpers/helpers.h
 
-SRC_BONUS = checker.c \
-	parsing_bonus/parsing.c parsing_bonus/parsing_utils.cparsing_bonus/errors.c \
-	operations_bonus/sa.c operations_bonus/sb.c operations_bonus/ss.c \
-	operations_bonus/pa.c operations_bonus/pb.c \
-	operations_bonus/ra.c operations_bonus/rb.c operations_bonus/rr.c \
-	operations_bonus/rra.c operations_bonus/rrb.c operations_bonus/rrr.c
+SRC = mandatory/push_swap.c mandatory/find_lis/find_lis.c mandatory/find_lis/find_lis_utils.c \
+	mandatory/parsing/parsing.c mandatory/parsing/parsing_utils.c mandatory/parsing/errors.c \
+	mandatory/push_swap_utils/sort_small_nums.c mandatory/push_swap_utils/push_not_exist_to_stack_b.c \
+	mandatory/push_swap_utils/iterate_stack_b.c mandatory/push_swap_utils/iterate_stack_b_2.c \
+	mandatory/push_swap_utils/small_functions.c mandatory/push_swap_utils/put_small_at_top.c\
+	mandatory/operations/sa.c mandatory/operations/sb.c mandatory/operations/ss.c \
+	mandatory/operations/pa.c mandatory/operations/pb.c \
+	mandatory/operations/ra.c mandatory/operations/rb.c mandatory/operations/rr.c \
+	mandatory/operations/rra.c mandatory/operations/rrb.c mandatory/operations/rrr.c \
+	mandatory/helpers/ft_strlen.c mandatory/helpers/ft_strncmp.c mandatory/helpers/ft_strlcpy.c mandatory/helpers/ft_atoi.c mandatory/helpers/ft_strtrim.c \
+	mandatory/helpers/ft_split.c mandatory/helpers/ft_lstnew.c mandatory/helpers/ft_lstsize.c mandatory/helpers/ft_lstadd_back.c
 
-SRC_LIBFT = libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_isascii.c libft/ft_isprint.c libft/ft_strlen.c libft/ft_memset.c libft/ft_bzero.c \
-	libft/ft_memcpy.c libft/ft_memmove.c libft/ft_strlcpy.c libft/ft_strlcat.c libft/ft_toupper.c libft/ft_tolower.c libft/ft_strchr.c libft/ft_strrchr.c libft/ft_strncmp.c \
-	libft/ft_memchr.c libft/ft_memcmp.c libft/ft_strnstr.c libft/ft_atoi.c libft/ft_calloc.c libft/ft_strdup.c libft/ft_substr.c libft/ft_strjoin.c libft/ft_strtrim.c \
-	libft/ft_split.c libft/ft_itoa.c libft/ft_strmapi.c libft/ft_striteri.c libft/ft_putchar_fd.c libft/ft_putstr_fd.c libft/ft_putendl_fd.c libft/ft_putnbr_fd.c \
-	libft/ft_lstnew.c libft/ft_lstadd_front.c libft/ft_lstsize.c libft/ft_lstlast.c libft/ft_lstadd_back.c libft/ft_lstdelone.c libft/ft_lstclear.c libft/ft_lstiter.c libft/ft_lstmap.c \
-	libft/get_next_line/get_next_line.c libft/get_next_line/get_next_line_utils.c
+SRC_BONUS = bonus/checker.c \
+	bonus/parsing/parsing.c bonus/parsing/parsing_utils.c bonus/parsing/errors.c \
+	bonus/operations/sa.c bonus/operations/sb.c bonus/operations/ss.c \
+	bonus/operations/pa.c bonus/operations/pb.c \
+	bonus/operations/ra.c bonus/operations/rb.c bonus/operations/rr.c \
+	bonus/operations/rra.c bonus/operations/rrb.c bonus/operations/rrr.c \
+	bonus/helpers/ft_strlen.c bonus/helpers/ft_strncmp.c bonus/helpers/ft_strlcpy.c bonus/helpers/ft_atoi.c bonus/helpers/ft_strtrim.c \
+	bonus/helpers/ft_split.c bonus/helpers/ft_lstnew.c bonus/helpers/ft_lstsize.c bonus/helpers/ft_lstadd_back.c \
+	bonus/get_next_line/get_next_line.c bonus/get_next_line/get_next_line_utils.c
 
 OBJ = $(SRC:.c=.o)
 
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
-OBJ_LIBFT = $(SRC_LIBFT:.c=.o)
-
-LIBFT = libft/libft.a
-
 FLAGS = -Wall -Wextra -Werror
 
-all : $(LIBFT) $(NAME)
-
-$(LIBFT) : $(OBJ_LIBFT) $(LIBFT_HEADERS)
-	make -C libft/
+all : $(NAME)
 
 $(NAME) : $(OBJ)
-	cc $(LIBFT) $(OBJ) -o $@
+	cc $(FLAGS) $(OBJ) -o $@
 
-bonus : $(LIBFT) $(NAME_BONUS)
+bonus : $(NAME_BONUS)
 
 $(NAME_BONUS) : $(OBJ_BONUS)
-	cc $(LIBFT) $(OBJ_BONUS) -o $@
+	cc $(FLAGS) $(LIBFT) $(OBJ_BONUS) -o $@
 
-%.o : %.c $(HEADERS)
+mandatory/%.o : mandatory/%.c $(HEADERS)
+	cc $(FLAGS) -c $< -o $@
+
+bonus/%.o : bonus/%.c $(HEADERS_BONUS)
 	cc $(FLAGS) -c $< -o $@
 
 clean :
-	find . -name "*.o" -type f -delete
+	rm -rf $(OBJ)
+	rm -rf $(OBJ_BONUS)
 
 fclean : clean
 	rm -rf $(NAME)
-	rm -rf $(LIBFT)
+	rm -rf $(NAME_BONUS)
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re bonus
