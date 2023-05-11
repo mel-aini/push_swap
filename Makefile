@@ -6,7 +6,7 @@
 #    By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 15:02:54 by mel-aini          #+#    #+#              #
-#    Updated: 2023/05/03 15:44:31 by mel-aini         ###   ########.fr        #
+#    Updated: 2023/05/11 18:05:56 by mel-aini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ $(NAME) : $(OBJ)
 bonus : $(NAME_BONUS)
 
 $(NAME_BONUS) : $(OBJ_BONUS)
-	cc $(FLAGS) $(LIBFT) $(OBJ_BONUS) -o $@
+	cc $(FLAGS) $(OBJ_BONUS) -o $@
 
 mandatory/%.o : mandatory/%.c $(HEADERS)
 	cc $(FLAGS) -c $< -o $@
