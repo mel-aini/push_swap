@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:26:05 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/02/26 12:50:28 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:04:10 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ t_list	*check_if_numbers(int argc, char *argv[])
 	while (++i < argc)
 	{
 		arg = ft_split(argv[i], ' ');
+		if (!arg || !*arg)
+			ft_error();
 		j = -1;
 		while (arg[++j])
 		{
 			num = ft_atoi(arg[j]);
 			if (num == 0 || num > 2147483647 || num < -2147483648)
-			{
 				if (num != 0 || !is_zero(arg[j]))
 					ft_error();
-			}
 			ft_lstadd_back(&stack_a, ft_lstnew(num));
 		}
 		free_arg(arg);
