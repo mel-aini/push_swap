@@ -6,7 +6,7 @@
 #    By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 15:02:54 by mel-aini          #+#    #+#              #
-#    Updated: 2023/05/11 18:05:56 by mel-aini         ###   ########.fr        #
+#    Updated: 2023/05/16 18:29:01 by mel-aini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME_BONUS = checker
 HEADERS = mandatory/push_swap.h mandatory/parsing/parsing.h mandatory/find_lis/find_lis.h \
 	mandatory/push_swap_utils/push_swap_utils.h mandatory/operations/operations.h mandatory/helpers/helpers.h
 
-HEADERS_BONUS = bonus/checker.h bonus/parsing/parsing.h bonus/operations/operations.h bonus/helpers/helpers.h
+HEADERS_BONUS = bonus/checker.h bonus/parsing/parsing.h bonus/operations/operations.h bonus/helpers/helpers.h bonus/get_next_line/get_next_line.h
 
 SRC = mandatory/push_swap.c mandatory/find_lis/find_lis.c mandatory/find_lis/find_lis_utils.c \
 	mandatory/parsing/parsing.c mandatory/parsing/parsing_utils.c mandatory/parsing/errors.c \

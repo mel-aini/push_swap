@@ -12,7 +12,7 @@
 
 #include "operations.h"
 
-void	pa(t_list **stack_a, t_list **stack_b, int print)
+void	pa(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*tmp;
 
@@ -22,7 +22,5 @@ void	pa(t_list **stack_a, t_list **stack_b, int print)
 		*stack_b = (*stack_b)->next;
 		tmp->next = *stack_a;
 		*stack_a = tmp;
-		if (print)
-			write(1, "pa\n", 3);
 	}
 }

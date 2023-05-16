@@ -12,10 +12,8 @@
 
 #include "operations.h"
 
-void	rrr(t_list **stack_a, t_list **stack_b, int print)
+void	rrr(t_list **stack_a, t_list **stack_b)
 {
-	rra(stack_a, 0);
-	rrb(stack_b, 0);
-	if (print)
-		write(1, "rrr\n", 4);
+	rra(stack_a);
+	rrb(stack_b);
 }

@@ -12,7 +12,7 @@
 
 #include "operations.h"
 
-void	sb(t_list **stack_b, int print)
+void	sb(t_list **stack_b)
 {
 	int	tmp;
 
@@ -21,7 +21,5 @@ void	sb(t_list **stack_b, int print)
 		tmp = (*stack_b)->content;
 		(*stack_b)->content = (*stack_b)->next->content;
 		(*stack_b)->next->content = tmp;
-		if (print)
-			write(1, "sb\n", 3);
 	}
 }

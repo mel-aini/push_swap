@@ -6,7 +6,7 @@
 /*   By: mel-aini <mel-aini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:25:10 by mel-aini          #+#    #+#             */
-/*   Updated: 2023/05/03 15:41:29 by mel-aini         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:25:22 by mel-aini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,27 @@ static void	free_stack(t_list *stack, int size)
 void	cases(t_list **stack_a, t_list **stack_b, char *line)
 {
 	if (!ft_strncmp(line, "sa\n", ft_strlen(line)))
-		sa(&(*stack_a), 0);
+		sa(&(*stack_a));
 	else if (!ft_strncmp(line, "sb\n", ft_strlen(line)))
-		sb(&(*stack_b), 0);
+		sb(&(*stack_b));
 	else if (!ft_strncmp(line, "ss\n", ft_strlen(line)))
-		ss(&(*stack_a), &(*stack_b), 0);
+		ss(&(*stack_a), &(*stack_b));
 	else if (!ft_strncmp(line, "pa\n", ft_strlen(line)))
-		pa(&(*stack_a), &(*stack_b), 0);
+		pa(&(*stack_a), &(*stack_b));
 	else if (!ft_strncmp(line, "pb\n", ft_strlen(line)))
-		pb(&(*stack_a), &(*stack_b), 0);
+		pb(&(*stack_a), &(*stack_b));
 	else if (!ft_strncmp(line, "ra\n", ft_strlen(line)))
-		ra(&(*stack_a), 0);
+		ra(&(*stack_a));
 	else if (!ft_strncmp(line, "rb\n", ft_strlen(line)))
-		rb(&(*stack_b), 0);
+		rb(&(*stack_b));
 	else if (!ft_strncmp(line, "rr\n", ft_strlen(line)))
-		rr(&(*stack_a), &(*stack_b), 0);
+		rr(&(*stack_a), &(*stack_b));
 	else if (!ft_strncmp(line, "rra\n", ft_strlen(line)))
-		rra(&(*stack_a), 0);
+		rra(&(*stack_a));
 	else if (!ft_strncmp(line, "rrb\n", ft_strlen(line)))
-		rrb(&(*stack_b), 0);
+		rrb(&(*stack_b));
 	else if (!ft_strncmp(line, "rrr\n", ft_strlen(line)))
-		rrr(&(*stack_a), &(*stack_b), 0);
+		rrr(&(*stack_a), &(*stack_b));
 	else
 		ft_error();
 }

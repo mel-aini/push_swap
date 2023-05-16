@@ -12,7 +12,7 @@
 
 #include "operations.h"
 
-void	pb(t_list **stack_a, t_list **stack_b, int print)
+void	pb(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*tmp;
 
@@ -22,7 +22,5 @@ void	pb(t_list **stack_a, t_list **stack_b, int print)
 		*stack_a = (*stack_a)->next;
 		tmp->next = *stack_b;
 		*stack_b = tmp;
-		if (print)
-			write(1, "pb\n", 3);
 	}
 }

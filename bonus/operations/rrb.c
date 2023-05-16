@@ -12,7 +12,7 @@
 
 #include "operations.h"
 
-void	rrb(t_list **stack_b, int print)
+void	rrb(t_list **stack_b)
 {
 	t_list	*tmp;
 	t_list	*ptr;
@@ -34,7 +34,5 @@ void	rrb(t_list **stack_b, int print)
 		ptr->next = *stack_b;
 		*stack_b = ptr;
 		tmp->next = NULL;
-		if (print)
-			write(1, "rrb\n", 4);
 	}
 }
